@@ -212,7 +212,7 @@ class ZStreamSpec(implicit ee: org.specs2.concurrent.ExecutionEnv)
       (Stream.range(0, 10) ++ Stream.fail(e))
         .buffer(2)
         .run(Sink.collectAll[Int])
-    ) must_== Failure(Cause.Fail(e))
+    ) must_== Failure(zio.Cause.Fail(e))
   }
 
   private def bufferFastProducerSlowConsumer =
@@ -959,7 +959,7 @@ class ZStreamSpec(implicit ee: org.specs2.concurrent.ExecutionEnv)
         .use { q =>
           Stream.fromQueue(q).unTake.run(Sink.collectAll[Int])
         }
-    ) must_== Failure(Cause.fail(e))
+    ) must_== Failure(zio.Cause.fail(e))
   }
 
   private def zipWith = {
